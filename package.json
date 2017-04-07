@@ -1,17 +1,20 @@
 {
-  "name": "react-hot-boilerplate",
-  "version": "1.0.0",
-  "description": "Boilerplate for ReactJS project with hot code reloading",
+  "name": "react-hot-browserify-boilerplate",
+  "version": "0.0.1",
+  "description": "Boilerplate for ReactJS project with hot code reloading in Browserify",
   "scripts": {
-    "start": "webpack-dev-server",
+    "prestart": "npm run prebuild && npm run postbuild",
+    "start": "concurrently \"npm run watch\" \"npm run serve\"",
+    "watch": "watchify ./src/index.js --debug -p livereactload -t babelify -o ./dist/index.js",
+    "serve": "cd dist & serve --single",
     "lint": "eslint src",
     "prebuild": "rimraf dist",
-    "build": "cross-env NODE_ENV=production webpack -p --config webpack.config.production.js",
+    "build": "cross-env NODE_ENV=production browserify ./src/index.js --debug -p livereactload -t babelify -o ./dist/index.js",
     "postbuild": "copyfiles index.html dist"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/gaearon/react-hot-boilerplate.git"
+    "url": "https://github.com/EugeneZ/react-hot-browserify-boilerplate.git"
   },
   "keywords": [
     "react",
@@ -22,32 +25,35 @@
     "hmr",
     "live",
     "edit",
-    "webpack"
+    "browserify"
   ],
   "author": "Dan Abramov <dan.abramov@me.com> (http://github.com/gaearon)",
+  "contributors": [
+    "EugeneZ <eugene.zar@gmail.com> (http://github.com/EugeneZ)"
+  ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gaearon/react-hot-boilerplate/issues"
+    "url": "https://github.com/EugeneZ/react-hot-browserify-boilerplate/issues"
   },
-  "homepage": "https://github.com/gaearon/react-hot-boilerplate",
+  "homepage": "https://github.com/EugeneZ/react-hot-browserify-boilerplate",
   "devDependencies": {
-    "babel-core": "^6.22.1",
-    "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.22.0",
     "babel-preset-react": "^6.22.0",
     "babel-preset-stage-2": "^6.22.0",
     "copyfiles": "^1.2.0",
     "cross-env": "^3.1.4",
     "react-hot-loader": "^3.0.0-beta.6",
-    "rimraf": "^2.6.0",
-    "webpack": "^2.2.0",
-    "webpack-dev-server": "^2.2.0"
+    "rimraf": "^2.6.0"
   },
   "dependencies": {
     "babel-eslint": "^7.1.1",
+    "babelify": "^7.3.0",
+    "concurrently": "^3.4.0",
     "eslint": "^3.14.1",
     "eslint-plugin-react": "^6.9.0",
+    "livereactload": "4.0.0-beta.1",
     "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "react-dom": "^15.4.2",
+    "serve": "^5.1.2"
   }
 }

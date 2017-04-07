@@ -13,4 +13,8 @@ const render = Component =>
   );
 
 render(App);
-if (module.hot) module.hot.accept('./App', () => render(App));
+
+// This part is not needed if your app is idempotent (like this boilerplate is)
+// Livereactload will re-run this file if the hook is not present
+// Feel free to delete it and try it out
+if (module.hot) module.hot.onUpdate(() => render(App));
